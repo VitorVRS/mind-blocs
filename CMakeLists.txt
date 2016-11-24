@@ -18,6 +18,8 @@ set(SOURCE_FILES main.cpp
         src/tiles/TileMap.cpp src/tiles/TileMap.h
         src/tiles/TileMapView.h        
         src/tiles/DiamondView.cpp src/tiles/DiamondView.h
+
+        src/Game.cpp src/Game.cpp
 )
 
 add_executable(star_explorer ${SOURCE_FILES})
