@@ -1,8 +1,9 @@
-CC = g++
+CC = /usr/bin/g++-5
 OUT = -o bin/run
 
 SRC = src/file/*.cpp \
       src/render/*.cpp \
+      src/tiles/*.cpp \
       src/common/*.cpp
 
 MAIN = main.cpp

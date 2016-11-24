@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.6)
-project(star_explorer)
+project(mind-blocs)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lglut -lGLU -lGL -std=c++11")
 
@@ -12,6 +12,12 @@ set(SOURCE_FILES main.cpp
         src/common/SpriteLoader.cpp src/common/SpriteLoader.h
         src/render/Image.cpp src/render/Image.h
         src/render/Animation.cpp src/render/Animation.h 
+
+        src/tiles/Tile.cpp src/tiles/Tile.h
+        src/tiles/TileSet.cpp src/tiles/TileSet.h
+        src/tiles/TileMap.cpp src/tiles/TileMap.h
+        src/tiles/TileMapView.h        
+        src/tiles/DiamondView.cpp src/tiles/DiamondView.h
 )
 
 add_executable(star_explorer ${SOURCE_FILES})
