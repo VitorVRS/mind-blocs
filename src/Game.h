@@ -1,11 +1,9 @@
-//
-// Created by fredrb on 9/24/16.
-//
-
 #ifndef GAME_HEADER
 #define GAME_HEADER
 
 #include <GLFW/glfw3.h>
+
+#include "screen/Manager.h"
 
 class Game {
 

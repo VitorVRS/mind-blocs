@@ -19,6 +19,10 @@ set(SOURCE_FILES main.cpp
         src/tiles/TileMapView.h        
         src/tiles/DiamondView.cpp src/tiles/DiamondView.h
 
+        src/screen/Manager.cpp src/screen/Manager.h
+        src/screen/Start.cpp src/screen/Start.h
+        src/screen/IScreen.h
+
         src/Game.cpp src/Game.cpp
 )
 

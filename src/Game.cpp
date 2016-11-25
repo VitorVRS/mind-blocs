@@ -41,10 +41,16 @@ void Game::init() {
         return;
     }
 
-     while ( !glfwWindowShouldClose(window) ) {
 
-        printf("%s\n", "Running");
-        // GameCallback::changeScreen(GameCallback::Start);
+    // change to start screen
+    Screen::Manager::getInstance()->change(Screen::Manager::Start);
+
+    while ( !glfwWindowShouldClose(window) ) {
+
+        // printf("%s\n", "Running");
+
+        // Screen::Manager::getInstance()->getCurrent()->execute();
+
         glfwSwapBuffers(window);
         glfwPollEvents();
     }

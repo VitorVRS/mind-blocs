@@ -5,6 +5,7 @@ SRC = src/file/*.cpp \
       src/render/*.cpp \
       src/tiles/*.cpp \
       src/common/*.cpp \
+      src/screen/*.cpp \
       src/*.cpp
 
 MAIN = main.cpp
