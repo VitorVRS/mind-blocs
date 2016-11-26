@@ -2,6 +2,7 @@
 #ifndef DIAMOND_VIEW_HEADER
 #define DIAMOND_VIEW_HEADER
 
+#include "TileMap.h"
 #include "TileMapView.h"
 
 namespace Tiles {

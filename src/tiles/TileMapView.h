@@ -1,7 +1,9 @@
 #ifndef TILE_MAP_VIEW_HEADER
 #define TILE_MAP_VIEW_HEADER
 
-namespace Tiles{
+#include "TileMap.h"
+
+namespace Tiles {
 
 class TileMapView {
 private:

@@ -7,6 +7,23 @@
 #include "Game.h"
 #include <iostream>
 
+#include "tiles/TileMap.h"
+#include "tiles/TileSet.h"
+#include "tiles/Tile.h"
+#include "tiles/DiamondView.h"
+#include "render/Tile.h"
+
+// GLFW FUNCTIONS
+void keyboardCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+
+    if (action == GLFW_PRESS) {
+        Screen::Manager::getInstance()->getCurrent()->keypress(key, scancode, mods);
+    }
+
+}
+
+// END GLFW FUNCTIONS
+
 
 void Game::setSize(int width, int height) {
     this->window_height = height;
@@ -42,6 +59,24 @@ void Game::init() {
 
     this->initGLDisplay();
 
+    glfwSetKeyCallback(window, keyboardCallback);
+
+    // prototipo
+    // transformar tileset em singleton?
+
+    Tiles::TileSet * tileSet = new Tiles::TileSet();
+    tileSet->addTile(new Tiles::Tile(1));
+    tileSet->addTile(new Tiles::Tile(2));
+    tileSet->addTile(new Tiles::Tile(3));
+    tileSet->addTile(new Tiles::Tile(4));
+
+    Tiles::TileMap * map = new Tiles::TileMap();
+    map->loadFromFile("resources/map1.txt");
+
+    Tiles::DiamondView * dm = new Tiles::DiamondView();
+
+    Render::Tile * render = new Render::Tile();
+
     // change to start screen
     Screen::Manager::getInstance()->change(Screen::Manager::Start);
 
@@ -50,7 +85,22 @@ void Game::init() {
         glClear(GL_COLOR_BUFFER_BIT);
 
         // temporario
-        Screen::Manager::getInstance()->getCurrent()->execute();
+        // Screen::Manager::getInstance()->getCurrent()->execute();
+
+        // desenho do diamond view aqui
+        // trocar para a screen de play depois
+        //
+        int x0, y0;
+        for (int x = 0; x < map->getCols(); x++) {
+
+            for (int y = 0; y < map->getRows(); y++) {
+
+                dm->calcTilePosition(x, y, 64, 32, x0, y0);
+                render->render( tileSet->getTileById( map->getTileId(x,y) ), x0, y0 );
+
+            }
+
+        }
 
         glfwSwapBuffers(window);
         glfwPollEvents();

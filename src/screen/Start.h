@@ -9,6 +9,7 @@ class Start: public IScreen {
 
 public:
     void execute() const;
+    void keypress(int key, int scancode, int mods) const;
 
 };
 

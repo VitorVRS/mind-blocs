@@ -9,6 +9,7 @@ private:
 
 public:
     virtual void execute() const = 0;
+    virtual void keypress(int key, int scancode, int mods) const = 0;
 
 };
 
