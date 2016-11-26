@@ -1,13 +1,15 @@
 #ifndef SCREEN_MANAGER_HEADER
 #define SCREEN_MANAGER_HEADER
 
+#include "IScreen.h"
+
 namespace Screen {
 
 class Manager {
 
 private:
     static Manager * instance;
-    // Screen::Screen * current;
+    Screen::IScreen * current;
     Manager() {};
     Manager(Manager const&);
     void operator=(Manager const&);
@@ -21,6 +23,8 @@ public:
     };
 
     void change(Manager::AVAIL_SCREENS screen);
+
+    Screen::IScreen * getCurrent();
 };
 
 };

@@ -10,8 +10,8 @@ private:
 public:
     virtual void execute() const = 0;
 
-}
+};
 
-}
+};
 
 #endif //SCREEN_ISCREEN_HEADER

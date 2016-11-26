@@ -30,7 +30,6 @@ void Game::init() {
         return;
     }
 
-    this->initGLDisplay();
 
     GLFWwindow * window = glfwCreateWindow(this->window_width, this->window_height, this->title, NULL, NULL);
     glfwSetWindowPos(window, this->window_pos_x, this->window_pos_y);
@@ -41,15 +40,17 @@ void Game::init() {
         return;
     }
 
+    this->initGLDisplay();
 
     // change to start screen
     Screen::Manager::getInstance()->change(Screen::Manager::Start);
 
     while ( !glfwWindowShouldClose(window) ) {
 
-        // printf("%s\n", "Running");
+        glClear(GL_COLOR_BUFFER_BIT);
 
-        // Screen::Manager::getInstance()->getCurrent()->execute();
+        // temporario
+        Screen::Manager::getInstance()->getCurrent()->execute();
 
         glfwSwapBuffers(window);
         glfwPollEvents();
@@ -65,11 +66,11 @@ void Game::init() {
 }
 
 void Game::initGLDisplay() {
-    glClearColor (0.0, 1.0f, 1.0f, 1.0f);
+    glClearColor (0.6, 0.6f, 0.6f, 1.0f);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glEnable(GL_BLEND);
-    glEnable(GL_TEXTURE_2D);
+    // glEnable(GL_TEXTURE_2D);
     glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

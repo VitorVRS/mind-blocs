@@ -8,12 +8,13 @@ namespace Tiles {
 class Tile {
 private:
     int id;
-    Render::Image * image;
+    unsigned texId;
 
 public:
-    Tile(int id, Render::Image * image) : id(id), image(image) {};
+    Tile(int id) : id(id) {};
+    Tile(int id, unsigned texId) : id(id), texId(texId) {};
     int getId();
-    Render::Image * getImage();
+    unsigned getTexId();
 };
 
 };
