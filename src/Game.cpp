@@ -64,7 +64,7 @@ void Game::init() {
     // prototipo
     // transformar tileset em singleton?
 
-    Tiles::TileSet * tileSet = new Tiles::TileSet();
+    Tiles::TileSet * tileSet = Tiles::TileSet::getInstance();
     tileSet->addTile(new Tiles::Tile(1));
     tileSet->addTile(new Tiles::Tile(2));
     tileSet->addTile(new Tiles::Tile(3));
