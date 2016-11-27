@@ -10,8 +10,7 @@
 #include "tiles/TileMap.h"
 #include "tiles/TileSet.h"
 #include "tiles/Tile.h"
-#include "tiles/DiamondView.h"
-#include "render/Tile.h"
+#include "render/Diamond.h"
 
 // GLFW FUNCTIONS
 void keyboardCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
@@ -73,9 +72,7 @@ void Game::init() {
     Tiles::TileMap * map = new Tiles::TileMap();
     map->loadFromFile("resources/map1.txt");
 
-    Tiles::DiamondView * dm = new Tiles::DiamondView();
-
-    Render::Tile * render = new Render::Tile();
+    Render::Diamond * dm = new Render::Diamond(map);
 
     // change to start screen
     Screen::Manager::getInstance()->change(Screen::Manager::Start);
@@ -90,17 +87,8 @@ void Game::init() {
         // desenho do diamond view aqui
         // trocar para a screen de play depois
         //
-        int x0, y0;
-        for (int x = 0; x < map->getCols(); x++) {
 
-            for (int y = 0; y < map->getRows(); y++) {
-
-                dm->calcTilePosition(x, y, 64, 32, x0, y0);
-                render->render( tileSet->getTileById( map->getTileId(x,y) ), x0, y0 );
-
-            }
-
-        }
+        dm->render();
 
         glfwSwapBuffers(window);
         glfwPollEvents();
