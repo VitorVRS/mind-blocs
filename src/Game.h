@@ -7,6 +7,7 @@
 
 class Game {
 
+
 public:
     Game() {};
     ~Game() {};
@@ -14,6 +15,9 @@ public:
     void setPosition(int x, int y);
     void setTitle(char* title);
     void init();
+
+    static const int TILE_WIDTH = 128;
+
 private:
     char* title;
     int window_width;

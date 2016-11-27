@@ -1,6 +1,6 @@
 #include <iostream>
 #include "Manager.h"
-#include "Start.h"
+#include "Play.h"
 
 Screen::Manager * Screen::Manager::instance = nullptr;
 
@@ -21,9 +21,9 @@ void Screen::Manager::change(Screen::Manager::AVAIL_SCREENS screen) {
 
     switch (screen) {
 
-        case Screen::Manager::Start:
+        case Screen::Manager::Play:
             printf("%s\n", "Switching to Start");
-            this->current = new Screen::Start();
+            this->current = new Screen::Play();
         break;
 
     }

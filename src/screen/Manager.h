@@ -19,7 +19,7 @@ public:
     static Manager * getInstance();
 
     enum AVAIL_SCREENS {
-        Start
+        Play
     };
 
     void change(Manager::AVAIL_SCREENS screen);

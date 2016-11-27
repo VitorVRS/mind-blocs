@@ -12,9 +12,10 @@ class Diamond {
 
 private:
     Tiles::TileMap * map;
+    int tileWidth, tileHeight;
 
 public:
-    Diamond(Tiles::TileMap * map) : map(map) {};
+    Diamond(Tiles::TileMap * map, int tileWidth) : map(map), tileWidth(tileWidth), tileHeight(tileWidth/2) {};
     void render();
 };
 

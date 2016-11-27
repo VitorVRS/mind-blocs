@@ -19,6 +19,7 @@ private:
 public:
     Tiles::Tile * getTileById(int id);
     void addTile(Tiles::Tile * tile);
+    std::vector<Tiles::Tile*> getTiles();
 
     static TileSet * getInstance();
 };

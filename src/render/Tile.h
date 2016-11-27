@@ -9,7 +9,7 @@ namespace Render {
 class Tile {
 
 public:
-    void render(Tiles::Tile * tile, GLfloat x, GLfloat y);
+    void render(Tiles::Tile * tile, GLfloat width, GLfloat height, GLfloat x, GLfloat y);
 
 };
 

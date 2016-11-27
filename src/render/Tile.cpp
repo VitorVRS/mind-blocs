@@ -3,10 +3,7 @@
 #include <iostream>
 #include <GL/gl.h>
 
-void Render::Tile::render(Tiles::Tile * tile, GLfloat x, GLfloat y) {
-
-    GLfloat width = 64;
-    GLfloat height = width / 2;
+void Render::Tile::render(Tiles::Tile * tile, GLfloat width, GLfloat height, GLfloat x, GLfloat y) {
 
     glBegin(GL_QUADS);
     glColor3f(1.0/tile->getId(), 1.0/tile->getId(), 1.0/tile->getId());

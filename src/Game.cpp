@@ -60,35 +60,23 @@ void Game::init() {
 
     glfwSetKeyCallback(window, keyboardCallback);
 
-    // prototipo
-    // transformar tileset em singleton?
-
     Tiles::TileSet * tileSet = Tiles::TileSet::getInstance();
     tileSet->addTile(new Tiles::Tile(1));
     tileSet->addTile(new Tiles::Tile(2));
     tileSet->addTile(new Tiles::Tile(3));
     tileSet->addTile(new Tiles::Tile(4));
+    tileSet->addTile(new Tiles::Tile(5));
+    tileSet->addTile(new Tiles::Tile(6));
 
-    Tiles::TileMap * map = new Tiles::TileMap();
-    map->loadFromFile("resources/map1.txt");
-
-    Render::Diamond * dm = new Render::Diamond(map);
 
     // change to start screen
-    Screen::Manager::getInstance()->change(Screen::Manager::Start);
+    Screen::Manager::getInstance()->change(Screen::Manager::Play);
 
     while ( !glfwWindowShouldClose(window) ) {
 
         glClear(GL_COLOR_BUFFER_BIT);
 
-        // temporario
-        // Screen::Manager::getInstance()->getCurrent()->execute();
-
-        // desenho do diamond view aqui
-        // trocar para a screen de play depois
-        //
-
-        dm->render();
+        Screen::Manager::getInstance()->getCurrent()->show();
 
         glfwSwapBuffers(window);
         glfwPollEvents();

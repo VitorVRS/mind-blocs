@@ -25,3 +25,7 @@ Tiles::TileSet *  Tiles::TileSet::getInstance() {
 
     return instance;
 }
+
+std::vector<Tiles::Tile*> Tiles::TileSet::getTiles() {
+    return this->tiles;
+}
