@@ -18,7 +18,7 @@ private:
 
 public:
     Play();
-    void show() const;
+    void show(int winWidth, int winHeight) const;
     void keypress(int key, int scancode, int mods) const;
 
 };

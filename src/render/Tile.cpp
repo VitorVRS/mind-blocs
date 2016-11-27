@@ -5,9 +5,14 @@
 
 void Render::Tile::render(Tiles::Tile * tile, GLfloat width, GLfloat height, GLfloat x, GLfloat y) {
 
-    glBegin(GL_QUADS);
+
     glColor3f(1.0/tile->getId(), 1.0/tile->getId(), 1.0/tile->getId());
 
+    if (this->customColor) {
+        glColor3f(this->r, this->g, this->b);
+    }
+
+    glBegin(GL_QUADS);
         //@todo glBindTexture <- tile->getTexId();
 
         // glTexCoord2f(0.0f, 1.0f);
@@ -25,3 +30,14 @@ void Render::Tile::render(Tiles::Tile * tile, GLfloat width, GLfloat height, GLf
     glEnd();
 
 };
+
+void Render::Tile::setColor(GLfloat r, GLfloat g, GLfloat b) {
+
+    this->r = r;
+    this->g = g;
+    this->b = b;
+    this->customColor = true;
+}
+void Render::Tile::clearColor() {
+    this->customColor = false;
+}

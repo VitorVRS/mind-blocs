@@ -76,7 +76,7 @@ void Game::init() {
 
         glClear(GL_COLOR_BUFFER_BIT);
 
-        Screen::Manager::getInstance()->getCurrent()->show();
+        Screen::Manager::getInstance()->getCurrent()->show(this->window_width, this->window_height);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
