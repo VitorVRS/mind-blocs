@@ -5,12 +5,16 @@ namespace Screen {
 
 class IScreen {
 
-private:
 
 public:
-    virtual void show(int winWidth, int winHeight) const = 0;
-    virtual void keypress(int key, int scancode, int mods) const = 0;
+    virtual void show() = 0;
+    virtual void keypress(int key, int scancode, int mods) = 0;
+    virtual void click(double x, double y, int mods) = 0;
 
+    virtual void setWidth(int width) = 0;
+    virtual void setHeight(int height) = 0;
+    virtual int getWidth() = 0;
+    virtual int getHeight() = 0;
 };
 
 };

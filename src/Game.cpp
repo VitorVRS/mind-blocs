@@ -21,6 +21,18 @@ void keyboardCallback(GLFWwindow* window, int key, int scancode, int action, int
 
 }
 
+void mouseCallback(GLFWwindow* window, int button, int action, int mods) {
+
+    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
+
+        double x, y;
+        glfwGetCursorPos(window, &x, &y);
+
+        Screen::Manager::getInstance()->getCurrent()->click(x, y, mods);
+    }
+
+}
+
 // END GLFW FUNCTIONS
 
 
@@ -59,6 +71,11 @@ void Game::init() {
     this->initGLDisplay();
 
     glfwSetKeyCallback(window, keyboardCallback);
+    glfwSetMouseButtonCallback(window, mouseCallback);
+
+    Screen::Manager * manager = Screen::Manager::getInstance();
+    manager->setScreenWidth(this->window_width);
+    manager->setScreenHeight(this->window_height);
 
     Tiles::TileSet * tileSet = Tiles::TileSet::getInstance();
     tileSet->addTile(new Tiles::Tile(1));
@@ -76,7 +93,7 @@ void Game::init() {
 
         glClear(GL_COLOR_BUFFER_BIT);
 
-        Screen::Manager::getInstance()->getCurrent()->show(this->window_width, this->window_height);
+        manager->getCurrent()->show();
 
         glfwSwapBuffers(window);
         glfwPollEvents();

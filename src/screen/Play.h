@@ -1,7 +1,7 @@
 #ifndef SCREEN_START_HEADER
 #define SCREEN_START_HEADER
 
-#include "IScreen.h"
+#include "AbstractScreen.h"
 #include "../common/Direction.h"
 #include "../render/Diamond.h"
 #include "../render/Menu.h"
@@ -10,7 +10,7 @@
 
 namespace Screen {
 
-class Play: public IScreen {
+class Play: public AbstractScreen {
 
 private:
     Render::Diamond * dm;
@@ -18,8 +18,9 @@ private:
 
 public:
     Play();
-    void show(int winWidth, int winHeight) const;
-    void keypress(int key, int scancode, int mods) const;
+    void show();
+    void keypress(int key, int scancode, int mods);
+    void click(double x, double y, int mods);
 
 };
 

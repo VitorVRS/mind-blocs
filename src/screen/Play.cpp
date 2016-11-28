@@ -12,12 +12,35 @@ Screen::Play::Play() {
     this->menu = new Render::Menu();
 }
 
-void Screen::Play::show(int winWidth, int winHeight) const {
-    this->dm->render(winWidth, winHeight);
+void Screen::Play::show() {
+
+    // valor utilizado para somar ao x e y
+    // para centralizar o diamond
+    int posX = this->getWidth()/2 - this->dm->getTileWidth() / 2;
+    int posY = this->getHeight()/2 - this->dm->getHeight() / 2;
+
+    this->dm->render(posX, posY);
     this->menu->render();
 }
 
-void Screen::Play::keypress(int key, int scancode, int mods) const {
+void Screen::Play::click(double x, double y, int mods) {
+
+
+    int posX = this->getWidth()/2 - this->dm->getWidth() / 2;
+    int posY = this->getHeight()/2 - this->dm->getHeight() / 2;
+
+    if (x - posX < 0 || x - posX >= this->dm->getWidth()) {
+        return;
+    }
+
+    if (y - posY < 0 || y - posY >= this->dm->getHeight()) {
+        return;
+    }
+
+    this->dm->moveCursorToAxis(x - posX, y - posY);
+}
+
+void Screen::Play::keypress(int key, int scancode, int mods) {
     printf("%i - %s\n", key, "pressed");
 
     switch (key) {

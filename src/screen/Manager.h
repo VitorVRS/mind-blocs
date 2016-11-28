@@ -14,6 +14,8 @@ private:
     Manager(Manager const&);
     void operator=(Manager const&);
 
+    int screenWidth, screenHeight;
+
 public:
 
     static Manager * getInstance();
@@ -25,6 +27,8 @@ public:
     void change(Manager::AVAIL_SCREENS screen);
 
     Screen::IScreen * getCurrent();
+    void setScreenWidth(int screenWidth);
+    void setScreenHeight(int screenHeight);
 };
 
 };

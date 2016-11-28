@@ -26,7 +26,11 @@ public:
     {};
     void render(int winWidth, int winHeight);
     void move(Direction direction);
-    void drawCursor();
+    void moveCursorToAxis(int x, int y);
+    int getWidth();
+    int getHeight();
+    int getTileWidth();
+    int getTileHeight();
 };
 
 };

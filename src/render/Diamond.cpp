@@ -1,31 +1,50 @@
 #include "Diamond.h"
 
-void Render::Diamond::render(int winWidth, int winHeight) {
+int Render::Diamond::getWidth() {
+    return this->map->getCols() * this->tileWidth;
+}
+
+int Render::Diamond::getHeight() {
+    return this->map->getRows() * this->tileHeight;
+}
+
+int Render::Diamond::getTileWidth() {
+    return this->tileWidth;
+}
+
+int Render::Diamond::getTileHeight() {
+    return this->tileHeight;
+}
+
+void Render::Diamond::render(int posX, int posY) {
 
     Tiles::TileSet * tileSet = Tiles::TileSet::getInstance();
     Render::Tile * render = new Render::Tile();
     Tiles::DiamondView * dm = new Tiles::DiamondView();
 
-    int xIni = winWidth/2 - this->tileWidth / 2;
-    int yIni = winHeight/2 - this->map->getRows() * this->tileHeight / 2;
-
+    // x e y de destino do tile
     int x0, y0;
+
     for (int x = 0; x < this->map->getCols(); x++) {
 
         for (int y = 0; y < this->map->getRows(); y++) {
 
+            // calcTilePosition
+            x0 = x * this->tileWidth/2 - y * this->tileWidth/2;
+            y0 = x * this->tileHeight/2 + y * this->tileHeight/2;
+
             dm->calcTilePosition(x, y, this->tileWidth, this->tileHeight, x0, y0);
             Tiles::Tile * tile = tileSet->getTileById( this->map->getTileId(x,y));
-            render->render(tile, this->tileWidth, this->tileHeight, xIni + x0, yIni + y0 );
+            render->render(tile, this->tileWidth, this->tileHeight, posX + x0 + x, posY + y0 + y);
 
+            // aproveita o "for" para desenhar o cursor quando necessario
             if (x == this->cursorX && y == this->cursorY) {
                 render->setColor(0,1,0);
-                render->render(tile, this->tileWidth, this->tileHeight, xIni + x0, yIni + y0 );
+                render->render(tile, this->tileWidth, this->tileHeight, posX + x0, posY + y0 );
                 render->clearColor();
             }
 
         }
-
     }
 
     delete render;
@@ -76,6 +95,9 @@ void Render::Diamond::move(Direction direction) {
         break;
     }
 
+    // regra para nao deixar o usuario mover alem do diamond para os lados
+    // se o x ou y for invalido, nada acontece
+
     if ( this->cursorX >= this->map->getCols()
       || this->cursorX < 0
       || this->cursorY >= this->map->getRows()
@@ -86,5 +108,18 @@ void Render::Diamond::move(Direction direction) {
     }
 
     printf("%i-%i\n", this->cursorX, this->cursorY);
+
+}
+
+void Render::Diamond::moveCursorToAxis(int x, int y) {
+    // @todo encontrar tile a partir do x e y
+
+    int r = 0;
+    int c = 0;
+
+    printf("%i-%i = %i,%i\n", x, y, r , c);
+
+    this->cursorY = r;
+    this->cursorX = c;
 
 }
