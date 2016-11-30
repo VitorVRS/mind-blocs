@@ -24,14 +24,14 @@ void Tiles::TileMap::loadFromFile(std::string file) {
     //
     // remover isso aqui, ´e apenas para exemplo
 
-    this->cols = 5;
-    this->rows = 5;
+    this->cols = 3;
+    this->rows = 3;
 
     this->tiles = new unsigned int[cols*rows];
 
     for (int x = 0; x<this->cols;x++) {
         for (int y = 0; y<this->rows;y++) {
-            this->tiles[x + y * this->cols] = x+1;
+            this->tiles[x + y * this->cols] = x;
         }
 
     }

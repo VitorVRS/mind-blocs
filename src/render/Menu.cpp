@@ -19,11 +19,16 @@ void Render::Menu::render() {
 
     for (int i = 0; i < tiles.size(); i++) {
         render->render(tiles.at(i), width, height, i * width, 10);
+
+        if (this->selected == i) {
+            render->setColor(0,1,0);
+            render->render(tiles.at(i), width, height, i * width, 10);
+            render->clearColor();
+        }
+
     }
 
     delete render;
-
-    this->drawCursor();
 
 }
 
@@ -49,20 +54,5 @@ void Render::Menu::change(Direction direction) {
     if (this->selected >= tiles.size()) {
         this->selected = tiles.size() - 1;
     }
-
-}
-
-void Render::Menu::drawCursor() {
-
-    glColor3f(0, 1.0, 0);
-
-    int width = Game::TILE_WIDTH;
-
-    glBegin(GL_QUADS);
-        glVertex2f(this->selected * width, 10);
-        glVertex2f(this->selected * width + width, 10);
-        glVertex2f(this->selected * width + width, 15);
-        glVertex2f(this->selected * width, 15);
-    glEnd();
 
 }

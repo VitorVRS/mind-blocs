@@ -35,7 +35,7 @@ void Render::Diamond::render(int posX, int posY) {
 
             dm->calcTilePosition(x, y, this->tileWidth, this->tileHeight, x0, y0);
             Tiles::Tile * tile = tileSet->getTileById( this->map->getTileId(x,y));
-            render->render(tile, this->tileWidth, this->tileHeight, posX + x0 + x, posY + y0 + y);
+            render->render(tile, this->tileWidth, this->tileHeight, posX + x0, posY + y0);
 
             // aproveita o "for" para desenhar o cursor quando necessario
             if (x == this->cursorX && y == this->cursorY) {

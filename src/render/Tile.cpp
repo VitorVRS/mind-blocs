@@ -12,19 +12,20 @@ void Render::Tile::render(Tiles::Tile * tile, GLfloat width, GLfloat height, GLf
         glColor3f(this->r, this->g, this->b);
     }
 
+    glBindTexture(GL_TEXTURE_2D, tile->getTexId());
     glBegin(GL_QUADS);
-        //@todo glBindTexture <- tile->getTexId();
 
-        // glTexCoord2f(0.0f, 1.0f);
+
+        glTexCoord2f(0.0f, 0.5f);
         glVertex2f(x, height / 2 + y);
 
-        // glTexCoord2f(1.0f, 1.0f);
+        glTexCoord2f(0.5f, 1.0f);
         glVertex2f(height + x, height + y);
 
-        // glTexCoord2f(1.0f, 0.0f);
+        glTexCoord2f(1.0f, 0.5f);
         glVertex2f(width + x, height / 2 + y);
 
-        // glTexCoord2f(0.0f, 0.0f);
+        glTexCoord2f(0.5f, 0.0f);
         glVertex2f(height + x, y);
 
     glEnd();

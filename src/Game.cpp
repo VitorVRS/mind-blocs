@@ -69,6 +69,7 @@ void Game::init() {
     }
 
     this->initGLDisplay();
+    this->loadTilesFile();
 
     glfwSetKeyCallback(window, keyboardCallback);
     glfwSetMouseButtonCallback(window, mouseCallback);
@@ -76,15 +77,6 @@ void Game::init() {
     Screen::Manager * manager = Screen::Manager::getInstance();
     manager->setScreenWidth(this->window_width);
     manager->setScreenHeight(this->window_height);
-
-    Tiles::TileSet * tileSet = Tiles::TileSet::getInstance();
-    tileSet->addTile(new Tiles::Tile(1));
-    tileSet->addTile(new Tiles::Tile(2));
-    tileSet->addTile(new Tiles::Tile(3));
-    tileSet->addTile(new Tiles::Tile(4));
-    tileSet->addTile(new Tiles::Tile(5));
-    tileSet->addTile(new Tiles::Tile(6));
-
 
     // change to start screen
     Screen::Manager::getInstance()->change(Screen::Manager::Play);
@@ -113,10 +105,44 @@ void Game::initGLDisplay() {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glEnable(GL_BLEND);
-    // glEnable(GL_TEXTURE_2D);
+    glEnable(GL_TEXTURE_2D);
+
     glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     glOrtho(0, this->window_width, 0, this->window_height, 0.0f, 1.0f);
+}
+
+void Game::loadTilesFile() {
+
+    int nTextures = 3;
+    unsigned int * ids = new unsigned int[7];
+
+    glGenTextures(nTextures, ids);
+
+    for (int i = 0; i < nTextures; i++) {
+
+        std::string filename = "resources/tile" + std::to_string(i) + ".ptm";
+
+        File::PTMFileReader reader = File::PTMFileReader();
+
+        File::t_image img = reader.loadImage( (char *) filename.c_str());
+        SpriteLoader loader = SpriteLoader(img);
+
+        Render::Image* image = loader.getImage();
+
+        Tiles::Tile * tile;
+
+        glBindTexture(GL_TEXTURE_2D, ids[i]);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->getWidth(), image->getHeight(), 0, GL_BGRA_EXT, GL_UNSIGNED_BYTE, image->getPixels());
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+        tile = new Tiles::Tile(i, ids[i]);
+        Tiles::TileSet::getInstance()->addTile(tile);
+
+        delete image;
+    }
+
 }
