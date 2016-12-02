@@ -15,7 +15,7 @@ Screen::Manager * Screen::Manager::getInstance() {
 
 void Screen::Manager::change(Screen::Manager::AVAIL_SCREENS screen) {
 
-    if (this->current == nullptr) {
+  if (this->current == nullptr) {
         delete this->current;
     }
 

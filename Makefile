@@ -1,4 +1,4 @@
-CC = /usr/bin/g++-5
+CC = /usr/bin/g++
 OUT = -o bin/run
 
 SRC = src/file/*.cpp \
@@ -10,7 +10,7 @@ SRC = src/file/*.cpp \
 
 MAIN = main.cpp
 
-_FLAGS_ = --std=c++11 -lGLU -lGL -lGLFW
+_FLAGS_ = -g --std=c++11 -lGLU -lGL -lglfw
 
 build :
 	$(CC) $(SRC) $(MAIN) $(OUT) $(_FLAGS_)

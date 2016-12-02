@@ -4,11 +4,12 @@
 #include "src/common/SpriteLoader.h"
 #include "src/Game.h"
 
-#include "src/file/LevelLoader.h"
+#include "src/file/MapFileLoader.h"
 
 void loadTileMap() {
-    LevelLoader loader("./resources/map/level01.map");
-    t_tile_map map = loader.getTileMap();
+    File::t_tile_map map;
+
+    File::getMapFile("./resources/maps/level01.map", map);
 
     std::cout << map.cols << std::endl;
     std::cout << map.rows << std::endl;

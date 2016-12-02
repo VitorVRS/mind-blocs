@@ -38,7 +38,7 @@ void mouseCallback(GLFWwindow* window, int button, int action, int mods) {
 
 void Game::setSize(int width, int height) {
     this->window_height = height;
-    this->window_width = width;
+    this->window_width = width; 
 }
 
 void Game::setPosition(int x, int y) {
