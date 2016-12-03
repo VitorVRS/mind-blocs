@@ -38,7 +38,7 @@ void mouseCallback(GLFWwindow* window, int button, int action, int mods) {
 
 void Game::setSize(int width, int height) {
     this->window_height = height;
-    this->window_width = width; 
+    this->window_width = width;
 }
 
 void Game::setPosition(int x, int y) {
@@ -83,7 +83,7 @@ void Game::init() {
 
     while ( !glfwWindowShouldClose(window) ) {
 
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
         manager->getCurrent()->show();
 
@@ -101,11 +101,11 @@ void Game::init() {
 }
 
 void Game::initGLDisplay() {
-    glClearColor (0.6, 0.6f, 0.6f, 1.0f);
+    glClearColor (0.6, 0.6, 0.6, 1);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glEnable(GL_BLEND);
     glEnable(GL_TEXTURE_2D);
+    glEnable(GL_BLEND);
 
     glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 

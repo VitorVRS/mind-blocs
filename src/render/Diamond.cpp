@@ -16,11 +16,23 @@ int Render::Diamond::getTileHeight() {
     return this->tileHeight;
 }
 
+int Render::Diamond::getCursorX() {
+    return this->cursorX;
+}
+
+int Render::Diamond::getCursorY() {
+    return this->cursorY;
+}
+
+void Render::Diamond::calcTilePosition(int x, int y, int &x0, int &y0) {
+    x0 = x * this->tileWidth/2 - y * this->tileWidth/2;
+    y0 = x * this->tileHeight/2 + y * this->tileHeight/2;
+}
+
 void Render::Diamond::render(int posX, int posY) {
 
     Tiles::TileSet * tileSet = Tiles::TileSet::getInstance();
     Render::Tile * render = new Render::Tile();
-    Tiles::DiamondView * dm = new Tiles::DiamondView();
 
     // x e y de destino do tile
     int x0, y0;
@@ -30,10 +42,8 @@ void Render::Diamond::render(int posX, int posY) {
         for (int y = 0; y < this->map->rows; y++) {
 
             // calcTilePosition
-            x0 = x * this->tileWidth/2 - y * this->tileWidth/2;
-            y0 = x * this->tileHeight/2 + y * this->tileHeight/2;
+            this->calcTilePosition(x, y, x0, y0);
 
-            dm->calcTilePosition(x, y, this->tileWidth, this->tileHeight, x0, y0);
             Tiles::Tile * tile = tileSet->getTileById( this->map->getTileId(x,y));
             render->render(tile, this->tileWidth, this->tileHeight, posX + x0, posY + y0);
 
@@ -48,7 +58,6 @@ void Render::Diamond::render(int posX, int posY) {
     }
 
     delete render;
-    delete dm;
 }
 
 void Render::Diamond::move(Direction direction) {

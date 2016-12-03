@@ -6,6 +6,7 @@
 #include "../common/LevelLoader.h"
 #include "../render/Diamond.h"
 #include "../render/Menu.h"
+#include "../render/Hand.h"
 #include "../tiles/TileMap.h"
 #include "../Game.h"
 
@@ -16,7 +17,10 @@ class Play: public AbstractScreen {
 private:
     Render::Diamond * dm;
     Render::Menu * menu;
+    Render::Hand * hand;
+
     LevelLoader * loader;
+    double elapsedTime;
 
 public:
     Play();

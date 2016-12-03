@@ -9,11 +9,14 @@ Screen::Play::Play() {
 
     this->loader->setCurrentLevel(this->current);
 
+    this->hand = new Render::Hand();
     this->dm = new Render::Diamond(this->current, Game::TILE_WIDTH);
     this->menu = new Render::Menu();
 }
 
 void Screen::Play::show() {
+
+    double iniTime = glfwGetTime();
 
     // valor utilizado para somar ao x e y
     // para centralizar o diamond
@@ -22,6 +25,24 @@ void Screen::Play::show() {
 
     this->dm->render(posX, posY);
     this->menu->render();
+
+    this->hand->addTime(this->elapsedTime);
+
+    int x, y;
+    this->dm->calcTilePosition(this->dm->getCursorX(), this->dm->getCursorY(), x, y);
+
+    // apply window offset
+    x += posX;
+    y += posY;
+
+    // center hand on top o tile
+    x += this->dm->getTileWidth()/2;
+    y += this->dm->getTileHeight()/2;
+
+    this->hand->render(x, y);
+
+    double endTime = glfwGetTime();
+    this->elapsedTime = endTime - iniTime;
 }
 
 void Screen::Play::click(double x, double y, int mods) {

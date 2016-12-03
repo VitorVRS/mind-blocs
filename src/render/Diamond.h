@@ -27,10 +27,16 @@ public:
     void render(int winWidth, int winHeight);
     void move(Direction direction);
     void moveCursorToAxis(int x, int y);
+
+    void calcTilePosition(int x, int y, int &x0, int &y0);
+
     int getWidth();
     int getHeight();
     int getTileWidth();
     int getTileHeight();
+
+    int getCursorX();
+    int getCursorY();
 };
 
 };
