@@ -19,25 +19,6 @@ int Tiles::TileMap::getTileId(int x, int y) {
     return this->tiles[x + y * cols];
 }
 
-void Tiles::TileMap::loadFromFile(std::string file) {
-    // @todo carregar arquivo do mapa de tiles;
-    //
-    // remover isso aqui, ´e apenas para exemplo
-
-    this->cols = 3;
-    this->rows = 3;
-
-    this->tiles = new unsigned int[cols*rows];
-
-    for (int x = 0; x<this->cols;x++) {
-        for (int y = 0; y<this->rows;y++) {
-            this->tiles[x + y * this->cols] = x;
-        }
-
-    }
-
-}
-
 int Tiles::TileMap::getCols() {
     return this->cols;
 }

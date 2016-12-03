@@ -3,12 +3,13 @@
 #include "GLFW/glfw3.h"
 #include <iostream>
 
+#include "../file/MapFileLoader.h"
+
 Screen::Play::Play() {
+    this->current = new Tiles::TileMap();
+    File::getMapFile("./resources/maps/level01.map", this->current);
 
-    Tiles::TileMap * map = new Tiles::TileMap();
-    map->loadFromFile("resources/map1.txt");
-
-    this->dm = new Render::Diamond(map, Game::TILE_WIDTH);
+    this->dm = new Render::Diamond(this->current, Game::TILE_WIDTH);
     this->menu = new Render::Menu();
 }
 

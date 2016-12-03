@@ -1,11 +1,11 @@
 #include "Diamond.h"
 
 int Render::Diamond::getWidth() {
-    return this->map->getCols() * this->tileWidth;
+    return this->map->cols * this->tileWidth;
 }
 
 int Render::Diamond::getHeight() {
-    return this->map->getRows() * this->tileHeight;
+    return this->map->rows * this->tileHeight;
 }
 
 int Render::Diamond::getTileWidth() {
@@ -25,9 +25,9 @@ void Render::Diamond::render(int posX, int posY) {
     // x e y de destino do tile
     int x0, y0;
 
-    for (int x = 0; x < this->map->getCols(); x++) {
+    for (int x = 0; x < this->map->cols; x++) {
 
-        for (int y = 0; y < this->map->getRows(); y++) {
+        for (int y = 0; y < this->map->rows; y++) {
 
             // calcTilePosition
             x0 = x * this->tileWidth/2 - y * this->tileWidth/2;
@@ -98,9 +98,9 @@ void Render::Diamond::move(Direction direction) {
     // regra para nao deixar o usuario mover alem do diamond para os lados
     // se o x ou y for invalido, nada acontece
 
-    if ( this->cursorX >= this->map->getCols()
+    if ( this->cursorX >= this->map->cols
       || this->cursorX < 0
-      || this->cursorY >= this->map->getRows()
+      || this->cursorY >= this->map->rows
       || this->cursorY < 0)
     {
         this->cursorY = bkpY;

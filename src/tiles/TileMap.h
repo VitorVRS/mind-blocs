@@ -6,16 +6,15 @@
 namespace Tiles {
 
 class TileMap {
-private:
+public:
     unsigned int * tiles;
     int cols;
     int rows;
-public:
+    int minimumTime;
     TileMap();
     TileMap(int cols, int rows);
     ~TileMap();
     int getTileId(int x, int y);
-    void loadFromFile(std::string file);
     int getCols();
     int getRows();
 

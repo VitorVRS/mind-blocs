@@ -21,6 +21,7 @@ public:
     void show();
     void keypress(int key, int scancode, int mods);
     void click(double x, double y, int mods);
+    Tiles::TileMap *current;
 
 };
 
