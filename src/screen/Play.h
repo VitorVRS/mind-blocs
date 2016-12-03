@@ -3,6 +3,7 @@
 
 #include "AbstractScreen.h"
 #include "../common/Direction.h"
+#include "../common/LevelLoader.h"
 #include "../render/Diamond.h"
 #include "../render/Menu.h"
 #include "../tiles/TileMap.h"
@@ -15,6 +16,7 @@ class Play: public AbstractScreen {
 private:
     Render::Diamond * dm;
     Render::Menu * menu;
+    LevelLoader * loader;
 
 public:
     Play();
