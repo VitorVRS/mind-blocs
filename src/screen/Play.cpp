@@ -111,7 +111,11 @@ void Screen::Play::keypress(int key, int scancode, int mods) {
         break;
         // end diamond keybindings
 
-
+        // game keybindings
+        case GLFW_KEY_SPACE:
+            this->dm->changeSelectedTileTo( this->menu->getSelected() );
+        break;
+        // end game keybindings
     }
 
 }

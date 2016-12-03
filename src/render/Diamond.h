@@ -37,6 +37,8 @@ public:
 
     int getCursorX();
     int getCursorY();
+
+    void changeSelectedTileTo(int tileId);
 };
 
 };

@@ -22,6 +22,7 @@ public:
     Menu();
     void change(Direction direction);
     void render();
+    int getSelected();
 
 };
 

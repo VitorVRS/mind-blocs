@@ -56,3 +56,7 @@ void Render::Menu::change(Direction direction) {
     }
 
 }
+
+int Render::Menu::getSelected() {
+    return this->selected;
+}

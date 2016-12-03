@@ -132,3 +132,7 @@ void Render::Diamond::moveCursorToAxis(int x, int y) {
     this->cursorX = c;
 
 }
+
+void Render::Diamond::changeSelectedTileTo(int tileId) {
+    this->map->tiles[this->cursorX + this->cursorY * this->map->cols] = tileId;
+}
