@@ -115,9 +115,6 @@ void Render::Diamond::move(Direction direction) {
         this->cursorY = bkpY;
         this->cursorX = bkpX;
     }
-
-    printf("%i-%i\n", this->cursorX, this->cursorY);
-
 }
 
 void Render::Diamond::moveCursorToAxis(int x, int y) {

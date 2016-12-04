@@ -6,6 +6,7 @@
 
 #include "file/PTMFileReader.h"
 #include "common/SpriteLoader.h"
+#include "common/FPS.h"
 #include "screen/Manager.h"
 #include "tiles/Tile.h"
 #include "tiles/TileSet.h"
