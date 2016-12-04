@@ -10,7 +10,7 @@ SRC = src/file/*.cpp \
 
 MAIN = main.cpp
 
-_FLAGS_ = -g --std=c++11 -lGLU -lGL -lglfw
+_FLAGS_ = --std=c++11 -lGLU -lGL -lglfw3 -lGLC
 
 build :
 	$(CC) $(SRC) $(MAIN) $(OUT) $(_FLAGS_)

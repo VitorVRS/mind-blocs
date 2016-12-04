@@ -2,6 +2,7 @@
 
 #include "GLFW/glfw3.h"
 #include <iostream>
+#include <iomanip>
 
 Screen::Play::Play() {
     this->current = new Tiles::TileMap();
@@ -12,6 +13,7 @@ Screen::Play::Play() {
     this->hand = new Render::Hand();
     this->dm = new Render::Diamond(this->current, Game::TILE_WIDTH);
     this->menu = new Render::Menu();
+    this->scoreboard = new Render::Text("0", 700, 550);
 }
 
 void Screen::Play::show() {
@@ -40,6 +42,9 @@ void Screen::Play::show() {
     y += this->dm->getTileHeight()/2;
 
     this->hand->render(x, y);
+
+    this->scoreboard->setText( std::to_string((int) (iniTime*100)) );
+    this->scoreboard->render();
 
     double endTime = glfwGetTime();
     this->elapsedTime = endTime - iniTime;

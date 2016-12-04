@@ -7,6 +7,7 @@
 #include "../render/Diamond.h"
 #include "../render/Menu.h"
 #include "../render/Hand.h"
+#include "../render/Text.h"
 #include "../tiles/TileMap.h"
 #include "../Game.h"
 
@@ -18,6 +19,7 @@ private:
     Render::Diamond * dm;
     Render::Menu * menu;
     Render::Hand * hand;
+    Render::Text * scoreboard;
 
     LevelLoader * loader;
     double elapsedTime;

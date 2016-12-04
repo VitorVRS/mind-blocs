@@ -33,6 +33,10 @@ void mouseCallback(GLFWwindow* window, int button, int action, int mods) {
 
 }
 
+void errorCallback(int code, const char * msg) {
+    std::cout << "GLFW ERROR: " << code << " - " << msg  << "\n";
+}
+
 // END GLFW FUNCTIONS
 
 
@@ -69,10 +73,12 @@ void Game::init() {
     }
 
     this->initGLDisplay();
+    this->initGLC();
     this->loadTilesFile();
 
     glfwSetKeyCallback(window, keyboardCallback);
     glfwSetMouseButtonCallback(window, mouseCallback);
+    glfwSetErrorCallback(errorCallback);
 
     Screen::Manager * manager = Screen::Manager::getInstance();
     manager->setScreenWidth(this->window_width);
@@ -112,6 +118,19 @@ void Game::initGLDisplay() {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     glOrtho(0, this->window_width, 0, this->window_height, 0.0f, 1.0f);
+}
+
+void Game::initGLC() {
+    GLint ctx = glcGenContext();
+    glcContext(ctx);
+
+    GLint font = glcGenFontID();
+    glcNewFontFromFamily(font, "Ubuntu");
+
+    glcFontFace(font, "Bold");
+    glcFont(font);
+    glcScale(24.f, 24.f);
+
 }
 
 void Game::loadTilesFile() {
