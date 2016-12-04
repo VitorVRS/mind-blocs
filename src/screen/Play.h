@@ -3,6 +3,7 @@
 
 #include "AbstractScreen.h"
 #include "../common/Direction.h"
+#include "../common/FPS.h"
 #include "../common/LevelLoader.h"
 #include "../render/Diamond.h"
 #include "../render/Menu.h"
@@ -20,13 +21,20 @@ private:
     Render::Menu * menu;
     Render::Hand * hand;
     Render::Text * scoreboard;
+    Render::Text * fpsText;
+
+    double currentTime;
+
+    FPS * fps;
+
+    int score;
 
     LevelLoader * loader;
-    double elapsedTime;
 
 public:
     Play();
-    void show();
+    ~Play();
+    void show(double time);
     void keypress(int key, int scancode, int mods);
     void click(double x, double y, int mods);
     Tiles::TileMap *current;

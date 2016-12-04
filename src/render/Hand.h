@@ -10,6 +10,8 @@ class Hand {
 
 private:
 
+    const int FPS = 12; // @todo aplicar a animacao a este FPS
+
     int currentFrame;
     double elapsedTime;
     Animation * animation;

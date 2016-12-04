@@ -3,28 +3,19 @@
 #include <iostream>
 
 FPS::FPS() {
-    this->timer = new Timer();
-    this->timer->start();
     this->fps = 0;
+    this->ticks = 0;
 }
 
-FPS::~FPS() {
-    delete this->timer;
-}
+void FPS::tick(double time) {
 
-
-void FPS::tick() {
-    this->timer->stop();
-
-    this->time += this->timer->getElapsedTime();
+    this->time += time;
 
     if (this->time >= 1.0) {
         this->fps = this->ticks;
         this->ticks = 0;
         this->time = this->time - 1.0;
     }
-
-    this->timer->start();
 
     this->ticks++;
 }

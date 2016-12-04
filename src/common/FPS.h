@@ -6,15 +6,13 @@
 class FPS {
 
 private:
-    Timer * timer;
     double time;
     int fps;
     int ticks;
 
 public:
     FPS();
-    ~FPS();
-    void tick();
+    void tick(double time);
     int getFPS();
 
 };

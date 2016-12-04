@@ -20,7 +20,7 @@ Render::Hand::~Hand() {
 void Render::Hand::render(int x, int y) {
 
     // hand frame need to change
-    if (this->elapsedTime >= 0.8) {
+    if (this->elapsedTime >= 0.08) {
 
         this->elapsedTime = 0;
 
@@ -48,5 +48,5 @@ void Render::Hand::render(int x, int y) {
 }
 
 void Render::Hand::addTime(double time) {
-    this->elapsedTime += time*1000;
+    this->elapsedTime += time;
 }

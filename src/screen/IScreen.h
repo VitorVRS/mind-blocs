@@ -7,7 +7,7 @@ class IScreen {
 
 
 public:
-    virtual void show() = 0;
+    virtual void show(double time) = 0;
     virtual void keypress(int key, int scancode, int mods) = 0;
     virtual void click(double x, double y, int mods) = 0;
 

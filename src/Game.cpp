@@ -87,27 +87,23 @@ void Game::init() {
     // change to start screen
     Screen::Manager::getInstance()->change(Screen::Manager::Play);
 
-    FPS * fps = new FPS();
-    Render::Text * fpsText = new Render::Text("FPS: 0", 10, 580);
+    Timer * timer = new Timer();
+    double time = 0;
 
     while ( !glfwWindowShouldClose(window) ) {
 
+        timer->start();
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-        manager->getCurrent()->show();
-
-        fpsText->setText("FPS: " + std::to_string( fps->getFPS() ));
-        fpsText->render();
+        manager->getCurrent()->show(time);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
 
-        fps->tick();
+        timer->stop();
+        time = timer->getElapsedTime();
     }
-
-    delete fpsText;
-    delete fps;
 
     printf("%s\n", "Destroying window");
     glfwDestroyWindow(window);
