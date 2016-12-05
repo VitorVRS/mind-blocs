@@ -5,8 +5,8 @@ LevelLoader::LevelLoader(unsigned int startLevel) {
     this->currentLevel = startLevel;
 }
 
-void LevelLoader::setCurrentLevel(Tiles::TileMap *map) {
-    File::getMapFile("./resources/maps/level" + std::to_string(this->currentLevel) + ".map", map);
+bool LevelLoader::setCurrentLevel(Tiles::TileMap *map) {
+    return File::getMapFile("./resources/maps/level" + std::to_string(this->currentLevel) + ".map", map);
 }
 
 void LevelLoader::incrementLevel() {

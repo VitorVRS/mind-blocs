@@ -5,7 +5,7 @@
 #include "../tiles/TileMap.h"
 
 namespace File {
-    void getMapFile(std::string path, Tiles::TileMap *tileMap);
+    bool getMapFile(std::string path, Tiles::TileMap *tileMap);
 }
 
 #endif

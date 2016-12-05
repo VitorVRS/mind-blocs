@@ -1,10 +1,11 @@
-#ifndef SCREEN_START_HEADER
-#define SCREEN_START_HEADER
+#ifndef SCREEN_PLAY_HEADER
+#define SCREEN_PLAY_HEADER
 
 #include "AbstractScreen.h"
 #include "../common/Direction.h"
 #include "../common/FPS.h"
 #include "../common/LevelLoader.h"
+#include "../common/Level.h"
 #include "../render/Diamond.h"
 #include "../render/Menu.h"
 #include "../render/Hand.h"
@@ -30,6 +31,10 @@ private:
     int score;
 
     LevelLoader * loader;
+    Level * level;
+
+    double startTime;
+    bool started;
 
 public:
     Play();
@@ -38,9 +43,11 @@ public:
     void keypress(int key, int scancode, int mods);
     void click(double x, double y, int mods);
     Tiles::TileMap *current;
+    void nextLevel();
+    void resetMap();
 
 };
 
 }
 
-#endif //SCREEN_START_HEADER
+#endif //SCREEN_PLAY_HEADER

@@ -5,16 +5,22 @@
 #include <iomanip>
 
 Screen::Play::Play() {
-    this->current = new Tiles::TileMap();
-    this->loader = new LevelLoader(1);
-
-    this->loader->setCurrentLevel(this->current);
-
-    this->hand = new Render::Hand();
-    this->dm = new Render::Diamond(this->current, Game::TILE_WIDTH);
-    this->menu = new Render::Menu();
 
     this->score = 1000;
+
+    this->started = false;
+    this->startTime = 0;
+
+    this->dm = new Render::Diamond(Game::TILE_WIDTH);
+
+    this->level = nullptr;
+    this->loader = new LevelLoader(0);
+
+    this->nextLevel();
+
+    this->hand = new Render::Hand();
+    this->menu = new Render::Menu();
+
     this->scoreboard = new Render::Text("", 600, 580);
 
     this->currentTime = 0;
@@ -22,6 +28,7 @@ Screen::Play::Play() {
     // fps control
     this->fps = new FPS();
     this->fpsText = new Render::Text("FPS: 0", 10, 580);
+
 }
 
 Screen::Play::~Play() {
@@ -38,6 +45,10 @@ Screen::Play::~Play() {
 
 void Screen::Play::show(double time) {
 
+    if (score <= 0) {
+        Screen::Manager::getInstance()->change(Screen::Manager::GameOver);
+    }
+
     // valor utilizado para somar ao x e y
     // para centralizar o diamond
     int posX = this->getWidth()/2 - this->dm->getTileWidth() / 2;
@@ -46,38 +57,52 @@ void Screen::Play::show(double time) {
     // draw diamond
     this->dm->render(posX, posY);
 
-    // draw menu
-    this->menu->render();
+    if (this->started) {
+
+        // draw menu
+        this->menu->render();
 
 
-    // start calculation for hand position
-    int x, y;
-    this->dm->calcTilePosition(this->dm->getCursorX(), this->dm->getCursorY(), x, y);
+        // start calculation for hand position
+        int x, y;
+        this->dm->calcTilePosition(this->dm->getCursorX(), this->dm->getCursorY(), x, y);
 
-    // apply window offset
-    x += posX;
-    y += posY;
+        // apply window offset
+        x += posX;
+        y += posY;
 
-    // center hand on top o tile
-    x += this->dm->getTileWidth()/2;
-    y += this->dm->getTileHeight()/2;
+        // center hand on top o tile
+        x += this->dm->getTileWidth()/2;
+        y += this->dm->getTileHeight()/2;
 
-    // draw hand
-    this->hand->render(x, y);
+        // draw hand
+        this->hand->render(x, y);
 
-    // draw score
-    this->scoreboard->setText( "Score: " + std::to_string(this->score) );
-    this->scoreboard->render();
+        // draw score
+        this->scoreboard->setText( "Score: " + std::to_string(this->score) );
+        this->scoreboard->render();
 
+    }
 
     // timer control
     // every second we decrease score by 1
-    if (this->currentTime >= 1.0 ) {
+    if (this->started && this->currentTime >= 1.0 ) {
         this->score--;
         this->currentTime = this->currentTime - 1;
     }
 
-    this->currentTime += time;
+    if (!this->started && this->startTime >= 5) {
+        this->started = true;
+        this->resetMap();
+    }
+
+    if (!this->started) {
+        this->startTime += time;
+    }
+
+    if (this->started) {
+        this->currentTime += time;
+    }
 
     // repassa o tempo de execucao para a animacao da "hand"
     this->hand->addTime(time);
@@ -106,7 +131,10 @@ void Screen::Play::click(double x, double y, int mods) {
 }
 
 void Screen::Play::keypress(int key, int scancode, int mods) {
-    printf("%i - %s\n", key, "pressed");
+
+    if (!this->started) {
+        return;
+    }
 
     switch (key) {
 
@@ -158,7 +186,58 @@ void Screen::Play::keypress(int key, int scancode, int mods) {
         case GLFW_KEY_SPACE:
             this->dm->changeSelectedTileTo( this->menu->getSelected() );
         break;
+
+        case GLFW_KEY_ENTER:
+
+            if ( this->level->validate(this->dm->getTileMap()) ) {
+                this->nextLevel();
+            } else {
+                Screen::Manager::getInstance()->change(Screen::Manager::GameOver);
+            }
+
+        break;
         // end game keybindings
     }
 
+}
+
+void Screen::Play::nextLevel() {
+
+    if (this->level != nullptr) {
+        delete this->level;
+    }
+
+    this->started = false;
+    this->startTime = 0;
+
+    Tiles::TileMap * map = new Tiles::TileMap();
+
+    this->loader->incrementLevel();
+
+    if ( !this->loader->setCurrentLevel(map) ) {
+        Screen::Manager::getInstance()->change(Screen::Manager::GameOver);
+    }
+
+    this->score = map->minimumTime;
+    this->level = new Level(map);
+    this->dm->setTileMap(map);
+}
+
+void Screen::Play::resetMap() {
+
+    int cols = this->level->getTileMap()->getCols();
+    int rows = this->level->getTileMap()->getRows();
+
+    Tiles::TileMap * tileMap = new Tiles::TileMap();
+    tileMap->cols = cols;
+    tileMap->rows = rows;
+    tileMap->tiles = new unsigned int[tileMap->cols * tileMap->rows];
+
+    for (int i = 0; i < cols; i++) {
+        for (int j = 0; j < rows; j++) {
+            tileMap->tiles[i + j * cols] = 0;
+        }
+    }
+
+    this->dm->setTileMap(tileMap);
 }

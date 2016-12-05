@@ -24,6 +24,16 @@ int Render::Diamond::getCursorY() {
     return this->cursorY;
 }
 
+void Render::Diamond::setTileMap(Tiles::TileMap * map) {
+    this->map = map;
+}
+
+
+Tiles::TileMap * Render::Diamond::getTileMap() {
+    return this->map;
+}
+
+
 void Render::Diamond::calcTilePosition(int x, int y, int &x0, int &y0) {
     x0 = x * this->tileWidth/2 - y * this->tileWidth/2;
     y0 = x * this->tileHeight/2 + y * this->tileHeight/2;

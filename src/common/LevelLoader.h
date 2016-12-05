@@ -8,7 +8,7 @@ class LevelLoader {
     unsigned int currentLevel;
  public:
     LevelLoader(unsigned int startLevel);
-    void setCurrentLevel(Tiles::TileMap *map);
+    bool setCurrentLevel(Tiles::TileMap *map);
     void incrementLevel();
     void setLevel(unsigned int level);
 };

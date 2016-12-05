@@ -17,6 +17,12 @@ private:
     int cursorX, cursorY;
 
 public:
+    Diamond(int tileWidth) :
+        tileWidth(tileWidth),
+        tileHeight(tileWidth/2),
+        cursorX(0),
+        cursorY(0)
+    {};
     Diamond(Tiles::TileMap * map, int tileWidth) :
         map(map),
         tileWidth(tileWidth),
@@ -38,6 +44,8 @@ public:
     int getCursorX();
     int getCursorY();
 
+    void setTileMap(Tiles::TileMap * map);
+    Tiles::TileMap * getTileMap();
     void changeSelectedTileTo(int tileId);
 };
 

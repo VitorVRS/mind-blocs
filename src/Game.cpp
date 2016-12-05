@@ -85,7 +85,7 @@ void Game::init() {
     manager->setScreenHeight(this->window_height);
 
     // change to start screen
-    Screen::Manager::getInstance()->change(Screen::Manager::Play);
+    Screen::Manager::getInstance()->change(Screen::Manager::Start);
 
     Timer * timer = new Timer();
     double time = 0;

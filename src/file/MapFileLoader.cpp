@@ -2,7 +2,7 @@
 #include <iostream>
 #include <fstream>
 
-void File::getMapFile(std::string path, Tiles::TileMap *tileMap) {
+bool File::getMapFile(std::string path, Tiles::TileMap *tileMap) {
     std::ifstream file = std::ifstream(path.c_str());
     if (file.is_open()) {
         file >> tileMap->cols;
@@ -19,7 +19,9 @@ void File::getMapFile(std::string path, Tiles::TileMap *tileMap) {
         }
 
         file >> tileMap->minimumTime;
+        return true;
     } else {
         std::cout << "Unable to open file" << std::endl;
+        return false;
     }
 }

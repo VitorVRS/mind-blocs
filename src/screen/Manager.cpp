@@ -1,6 +1,8 @@
 #include <iostream>
 #include "Manager.h"
+#include "Start.h"
 #include "Play.h"
+#include "GameOver.h"
 
 Screen::Manager * Screen::Manager::instance = nullptr;
 
@@ -21,11 +23,19 @@ void Screen::Manager::change(Screen::Manager::AVAIL_SCREENS screen) {
 
     switch (screen) {
 
+        case Screen::Manager::Start:
+            this->current = new Screen::Start();
+        break;
+
         case Screen::Manager::Play:
             printf("%s\n", "Switching to Start");
             this->current = new Screen::Play();
             this->current->setWidth(this->screenWidth);
             this->current->setHeight(this->screenHeight);
+        break;
+
+        case Screen::Manager::GameOver:
+            this->current = new Screen::GameOver();
         break;
 
     }
