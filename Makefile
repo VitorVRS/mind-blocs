@@ -1,6 +1,8 @@
 CC = /usr/bin/g++
 OUT = -o bin/run
 
+GLFW = -lglfw3
+
 SRC = src/file/*.cpp \
       src/render/*.cpp \
       src/tiles/*.cpp \
@@ -10,7 +12,7 @@ SRC = src/file/*.cpp \
 
 MAIN = main.cpp
 
-_FLAGS_ = --std=c++11 -lGLU -lGL -lglfw3 -lGLC
+_FLAGS_ = --std=c++11 -lGLU -lGL $(GLFW) -lGLC
 
 build :
 	$(CC) $(SRC) $(MAIN) $(OUT) $(_FLAGS_)
