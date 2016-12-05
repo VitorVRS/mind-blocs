@@ -6,7 +6,7 @@
 
 Screen::Play::Play() {
 
-    this->score = 1000;
+    this->score = 1;
 
     this->started = false;
     this->startTime = 0;
@@ -14,6 +14,7 @@ Screen::Play::Play() {
     this->dm = new Render::Diamond(Game::TILE_WIDTH);
 
     this->level = nullptr;
+    this->levelCount = 0;
     this->loader = new LevelLoader(0);
 
     this->nextLevel();
@@ -22,6 +23,8 @@ Screen::Play::Play() {
     this->menu = new Render::Menu();
 
     this->scoreboard = new Render::Text("", 600, 580);
+    this->timerText = new Render::Text("", 600, 540);
+    this->levelText = new Render::Text("Level:" + std::to_string(this->levelCount), 600, 500);
 
     this->currentTime = 0;
 
@@ -40,8 +43,9 @@ Screen::Play::~Play() {
     delete this->scoreboard;
     delete this->fps;
     delete this->fpsText;
+    delete this->timerText;
+    delete this->levelText;
 }
-
 
 void Screen::Play::show(double time) {
 
@@ -81,14 +85,19 @@ void Screen::Play::show(double time) {
         // draw score
         this->scoreboard->setText( "Score: " + std::to_string(this->score) );
         this->scoreboard->render();
-
+        this->timerText->setText("Remaining: " + std::to_string(this->remainingTime));
+        this->timerText->render();
+        this->levelText->setText("Level: " + std::to_string(this->levelCount));
+        this->levelText->render();
     }
 
     // timer control
     // every second we decrease score by 1
     if (this->started && this->currentTime >= 1.0 ) {
-        this->score--;
+        this->remainingTime--;
         this->currentTime = this->currentTime - 1;
+        if (this->remainingTime <= 0)
+            Screen::Manager::getInstance()->change(Screen::Manager::GameOver);
     }
 
     if (!this->started && this->startTime >= 5) {
@@ -191,6 +200,7 @@ void Screen::Play::keypress(int key, int scancode, int mods) {
 
             if ( this->level->validate(this->dm->getTileMap()) ) {
                 this->nextLevel();
+                this->levelText->setText("Level: " + std::to_string(this->levelCount));
             } else {
                 Screen::Manager::getInstance()->change(Screen::Manager::GameOver);
             }
@@ -202,6 +212,8 @@ void Screen::Play::keypress(int key, int scancode, int mods) {
 }
 
 void Screen::Play::nextLevel() {
+    if (this->levelCount >= 1)
+        this->score = this->levelCount * this->remainingTime;
 
     if (this->level != nullptr) {
         delete this->level;
@@ -213,12 +225,13 @@ void Screen::Play::nextLevel() {
     Tiles::TileMap * map = new Tiles::TileMap();
 
     this->loader->incrementLevel();
+    this->levelCount++;
 
     if ( !this->loader->setCurrentLevel(map) ) {
         Screen::Manager::getInstance()->change(Screen::Manager::GameOver);
     }
 
-    this->score = map->minimumTime;
+    this->remainingTime = map->minimumTime;
     this->level = new Level(map);
     this->dm->setTileMap(map);
 }

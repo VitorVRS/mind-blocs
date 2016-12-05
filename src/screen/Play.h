@@ -23,12 +23,16 @@ private:
     Render::Hand * hand;
     Render::Text * scoreboard;
     Render::Text * fpsText;
+    Render::Text * timerText;
+    Render::Text * levelText;
 
     double currentTime;
 
     FPS * fps;
 
     int score;
+    int remainingTime;
+    int levelCount;
 
     LevelLoader * loader;
     Level * level;
